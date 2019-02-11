@@ -166,6 +166,14 @@ impl<T: Ord + Copy> Vector2<T> {
     fn max_component(&self) -> T {
         max(self.x, self.y)
     }
+
+    fn min_dimension(&self) -> usize {
+        if self.x < self.y { 0 } else { 1 }
+    }
+
+    fn max_dimension(&self) -> usize {
+        if self.x > self.y { 0 } else { 1 }
+    }
 }
 
 #[cfg(test)]

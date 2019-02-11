@@ -196,6 +196,22 @@ impl<T: Ord + Copy> Vector3<T> {
     fn max_component(&self) -> T {
         max(self.x, max(self.y, self.z))
     }
+
+    fn min_dimension(&self) -> usize {
+        if self.x < self.y {
+            if self.x < self.z { 0 } else { 2 }
+        } else {
+            if self.y < self.z { 1 } else { 2 }
+        }
+    }
+
+    fn max_dimension(&self) -> usize {
+        if self.x > self.y {
+            if self.x > self.z { 0 } else { 2 }
+        } else {
+            if self.y > self.z { 1 } else { 2 }
+        }
+    }
 }
 
 #[cfg(test)]

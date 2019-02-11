@@ -313,3 +313,25 @@ mod max_component {
         assert_eq!(subject.max_component(), 3);
     }
 }
+
+mod min_dimension {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_index_of_the_dimension_with_smallest_component() {
+        let subject = Subject::new(1, 2, 3);
+
+        assert_eq!(subject.min_dimension(), 0);
+    }
+}
+
+mod max_dimension {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_index_of_the_dimension_with_largest_component() {
+        let subject = Subject::new(1, 2, 3);
+
+        assert_eq!(subject.max_dimension(), 2);
+    }
+}
