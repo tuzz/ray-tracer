@@ -1,4 +1,4 @@
-use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
+use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 
 #[derive(Default)]
 struct Vector2<T> {
@@ -100,6 +100,14 @@ impl<D: Into<f64>> DivAssign<D> for Vector2f {
 
         self.x *= inverse;
         self.y *= inverse;
+    }
+}
+
+impl<T: Neg<Output=T>> Neg for Vector2<T> {
+    type Output = Self;
+
+    fn neg(self) -> Self {
+        Self::new(-self.x, -self.y)
     }
 }
 

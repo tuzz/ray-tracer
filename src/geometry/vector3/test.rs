@@ -169,3 +169,16 @@ mod division {
         assert_approx_eq!(subject.z, 0.3);
     }
 }
+
+mod negation {
+    use super::*;
+
+    #[test]
+    fn it_returns_a_vector_pointing_in_the_opposite_direction() {
+        let subject = -Subject::new(1, 2, 3);
+
+        assert_eq!(subject.x, -1);
+        assert_eq!(subject.y, -2);
+        assert_eq!(subject.z, -3);
+    }
+}
