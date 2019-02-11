@@ -1,5 +1,6 @@
 use std::ops::Index;
 
+#[derive(Default)]
 struct Vector2<T> {
     pub x: T,
     pub y: T,
