@@ -255,3 +255,25 @@ mod normalize {
         assert_eq!(subject.y, 2.0 / divisor);
     }
 }
+
+mod min_component {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_value_of_the_smallest_component() {
+        let subject = Subject::new(1, 2);
+
+        assert_eq!(subject.min_component(), 1);
+    }
+}
+
+mod max_component {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_value_of_the_largest_component() {
+        let subject = Subject::new(1, 2);
+
+        assert_eq!(subject.max_component(), 2);
+    }
+}

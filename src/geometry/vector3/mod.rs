@@ -1,4 +1,5 @@
 use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
+use std::cmp::{min, max};
 
 #[derive(Clone, Default)]
 struct Vector3<T> {
@@ -184,6 +185,16 @@ impl<T: Into<f64> + Copy> Vector3<T> {
 
     fn normalize(&self) -> Vector3f {
         self.clone() / self.length()
+    }
+}
+
+impl<T: Ord + Copy> Vector3<T> {
+    fn min_component(&self) -> T {
+        min(self.x, min(self.y, self.z))
+    }
+
+    fn max_component(&self) -> T {
+        max(self.x, max(self.y, self.z))
     }
 }
 
