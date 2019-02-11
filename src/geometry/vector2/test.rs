@@ -220,3 +220,38 @@ mod abs_dot {
         assert_eq!(subject.y, 8);
     }
 }
+
+mod length_squared {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_square_of_the_length_of_the_vector() {
+        let subject = Subject::new(1, 2);
+
+        assert_eq!(subject.length_squared(), 5.0);
+    }
+}
+
+mod length {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_length_of_the_vector() {
+        let subject = Subject::new(1, 2);
+
+        assert_eq!(subject.length(), f64::sqrt(5.0));
+    }
+}
+
+mod normalize {
+    use super::*;
+
+    #[test]
+    fn it_divides_each_component_by_the_vectors_length() {
+        let subject = Subject::new(1, 2).normalize();
+        let divisor = f64::sqrt(5.0);
+
+        assert_eq!(subject.x, 1.0 / divisor);
+        assert_eq!(subject.y, 2.0 / divisor);
+    }
+}

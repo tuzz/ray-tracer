@@ -1,6 +1,6 @@
 use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 struct Vector2<T> {
     pub x: T,
     pub y: T,
@@ -137,6 +137,23 @@ impl<T: Mul<Output=T> + Copy> Vector2<T> {
         let y = self.y * other.y;
 
         Self::new(x, y)
+    }
+}
+
+impl<T: Into<f64> + Copy> Vector2<T> {
+    fn length_squared(&self) -> f64 {
+        let x = self.x.into();
+        let y = self.y.into();
+
+        x * x + y * y
+    }
+
+    fn length(&self) -> f64 {
+        self.length_squared().sqrt()
+    }
+
+    fn normalize(&self) -> Vector2f {
+        self.clone() / self.length()
     }
 }
 

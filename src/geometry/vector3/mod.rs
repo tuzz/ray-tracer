@@ -1,6 +1,6 @@
 use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 struct Vector3<T> {
     pub x: T,
     pub y: T,
@@ -166,6 +166,24 @@ impl<T: Into<f64> + Copy> Vector3<T> {
         let z = (self_x * other_y) - (self_y * other_x);
 
         Vector3f::new(x, y, z)
+    }
+}
+
+impl<T: Into<f64> + Copy> Vector3<T> {
+    fn length_squared(&self) -> f64 {
+        let x = self.x.into();
+        let y = self.y.into();
+        let z = self.z.into();
+
+        x * x + y * y + z * z
+    }
+
+    fn length(&self) -> f64 {
+        self.length_squared().sqrt()
+    }
+
+    fn normalize(&self) -> Vector3f {
+        self.clone() / self.length()
     }
 }
 

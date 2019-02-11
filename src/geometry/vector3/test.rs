@@ -255,3 +255,39 @@ mod cross {
         assert_eq!(subject.z, 3.0);
     }
 }
+
+mod length_squared {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_square_of_the_length_of_the_vector() {
+        let subject = Subject::new(1, 2, 3);
+
+        assert_eq!(subject.length_squared(), 14.0);
+    }
+}
+
+mod length {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_length_of_the_vector() {
+        let subject = Subject::new(1, 2, 3);
+
+        assert_eq!(subject.length(), f64::sqrt(14.0));
+    }
+}
+
+mod normalize {
+    use super::*;
+
+    #[test]
+    fn it_divides_each_component_by_the_vectors_length() {
+        let subject = Subject::new(1, 2, 3).normalize();
+        let divisor = f64::sqrt(14.0);
+
+        assert_eq!(subject.x, 1.0 / divisor);
+        assert_eq!(subject.y, 2.0 / divisor);
+        assert_eq!(subject.z, 3.0 / divisor);
+    }
+}
