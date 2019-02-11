@@ -230,5 +230,11 @@ impl<T: Ord + Copy> Vector3<T> {
     }
 }
 
+impl<T: Copy> Vector3<T> {
+    fn permute(&self, x: usize, y: usize, z: usize) -> Self {
+        Self::new(self[x], self[y], self[z])
+    }
+}
+
 #[cfg(test)]
 mod test;

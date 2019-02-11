@@ -367,3 +367,28 @@ mod max {
         assert_eq!(subject.z, 3);
     }
 }
+
+mod permute {
+    use super::*;
+
+    #[test]
+    fn it_permutes_the_component_values_according_to_the_indexes() {
+        let subject = Subject::new(5, 6, 7);
+
+        let permute_012 = subject.permute(0, 1, 2);
+        let permute_201 = subject.permute(2, 0, 1);
+        let permute_120 = subject.permute(1, 2, 0);
+
+        assert_eq!(permute_012.x, 5);
+        assert_eq!(permute_012.y, 6);
+        assert_eq!(permute_012.z, 7);
+
+        assert_eq!(permute_201.x, 7);
+        assert_eq!(permute_201.y, 5);
+        assert_eq!(permute_201.z, 6);
+
+        assert_eq!(permute_120.x, 6);
+        assert_eq!(permute_120.y, 7);
+        assert_eq!(permute_120.z, 5);
+    }
+}

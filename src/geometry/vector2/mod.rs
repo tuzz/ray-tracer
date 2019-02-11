@@ -190,5 +190,11 @@ impl<T: Ord + Copy> Vector2<T> {
     }
 }
 
+impl<T: Copy> Vector2<T> {
+    fn permute(&self, x: usize, y: usize) -> Self {
+        Self::new(self[x], self[y])
+    }
+}
+
 #[cfg(test)]
 mod test;
