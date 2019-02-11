@@ -62,3 +62,32 @@ mod default {
         assert_eq!(subject.z, 0);
     }
 }
+
+mod addition {
+    use super::*;
+
+    #[test]
+    fn it_adds_the_components() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(4, 5, 6);
+
+        let subject = a + b;
+
+        assert_eq!(subject.x, 5);
+        assert_eq!(subject.y, 7);
+        assert_eq!(subject.z, 9);
+    }
+
+    #[test]
+    fn it_can_mutate_the_vector() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(4, 5, 6);
+
+        let mut subject = a;
+        subject += b;
+
+        assert_eq!(subject.x, 5);
+        assert_eq!(subject.y, 7);
+        assert_eq!(subject.z, 9);
+    }
+}

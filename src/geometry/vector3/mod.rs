@@ -1,4 +1,4 @@
-use std::ops::Index;
+use std::ops::{Index, Add, AddAssign};
 
 #[derive(Default)]
 struct Vector3<T> {
@@ -26,6 +26,26 @@ impl<T> Index<usize> for Vector3<T> {
             2 => &self.z,
             _ => panic!("index out of bounds: {}", index),
         }
+    }
+}
+
+impl<T: Add<Output=T>> Add for Vector3<T> {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        let x = self.x + other.x;
+        let y = self.y + other.y;
+        let z = self.z + other.z;
+
+        Self::new(x, y, z)
+    }
+}
+
+impl<T: AddAssign> AddAssign for Vector3<T> {
+    fn add_assign(&mut self, other: Self) {
+        self.x += other.x;
+        self.y += other.y;
+        self.z += other.z;
     }
 }
 
