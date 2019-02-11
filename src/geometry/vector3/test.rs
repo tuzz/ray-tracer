@@ -220,3 +220,19 @@ mod dot {
         assert_eq!(subject.z, 18);
     }
 }
+
+mod abs_dot {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_absolute_value_of_the_dot_product() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(-4, -5, -6);
+
+        let subject = a.abs_dot(&b);
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 10);
+        assert_eq!(subject.z, 18);
+    }
+}

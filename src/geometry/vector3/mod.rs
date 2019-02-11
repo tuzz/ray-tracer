@@ -125,11 +125,19 @@ impl Vector3f {
     fn abs(&self) -> Self {
         Self::new(self.x.abs(), self.y.abs(), self.z.abs())
     }
+
+    fn abs_dot(&self, other: &Self) -> Self {
+        self.dot(other).abs()
+    }
 }
 
 impl Vector3i {
     fn abs(&self) -> Self {
         Self::new(self.x.abs(), self.y.abs(), self.z.abs())
+    }
+
+    fn abs_dot(&self, other: &Self) -> Self {
+        self.dot(other).abs()
     }
 }
 

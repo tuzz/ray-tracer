@@ -115,11 +115,19 @@ impl Vector2f {
     fn abs(&self) -> Self {
         Self::new(self.x.abs(), self.y.abs())
     }
+
+    fn abs_dot(&self, other: &Self) -> Self {
+        self.dot(other).abs()
+    }
 }
 
 impl Vector2i {
     fn abs(&self) -> Self {
         Self::new(self.x.abs(), self.y.abs())
+    }
+
+    fn abs_dot(&self, other: &Self) -> Self {
+        self.dot(other).abs()
     }
 }
 
