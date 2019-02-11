@@ -120,3 +120,27 @@ mod subtraction {
         assert_eq!(subject.z, 2);
     }
 }
+
+mod multiplication {
+    use super::*;
+
+    #[test]
+    fn it_multiplies_by_a_scalar() {
+        let subject = Subject::new(1, 2, 3) * 4;
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 8);
+        assert_eq!(subject.z, 12);
+    }
+
+    #[test]
+    fn it_can_mutate_the_vector() {
+        let mut subject = Subject::new(1, 2, 3);
+
+        subject *= 4;
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 8);
+        assert_eq!(subject.z, 12);
+    }
+}

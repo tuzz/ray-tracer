@@ -113,3 +113,25 @@ mod subtraction {
         assert_eq!(subject.y, 3);
     }
 }
+
+mod multiplication {
+    use super::*;
+
+    #[test]
+    fn it_multiplies_by_a_scalar() {
+        let subject = Subject::new(1, 2) * 3;
+
+        assert_eq!(subject.x, 3);
+        assert_eq!(subject.y, 6);
+    }
+
+    #[test]
+    fn it_can_mutate_the_vector() {
+        let mut subject = Subject::new(1, 2);
+
+        subject *= 3;
+
+        assert_eq!(subject.x, 3);
+        assert_eq!(subject.y, 6);
+    }
+}

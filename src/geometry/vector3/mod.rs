@@ -1,4 +1,4 @@
-use std::ops::{Index, Add, AddAssign, Sub, SubAssign};
+use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign};
 
 #[derive(Default)]
 struct Vector3<T> {
@@ -66,6 +66,26 @@ impl<T: SubAssign> SubAssign for Vector3<T> {
         self.x -= other.x;
         self.y -= other.y;
         self.z -= other.z;
+    }
+}
+
+impl<T: Mul<Output=T> + Copy> Mul<T> for Vector3<T> {
+    type Output = Self;
+
+    fn mul(self, scalar: T) -> Self {
+        let x = self.x * scalar;
+        let y = self.y * scalar;
+        let z = self.z * scalar;
+
+        Self::new(x, y, z)
+    }
+}
+
+impl<T: MulAssign + Copy> MulAssign<T> for Vector3<T> {
+    fn mul_assign(&mut self, scalar: T) {
+        self.x *= scalar;
+        self.y *= scalar;
+        self.z *= scalar;
     }
 }
 
