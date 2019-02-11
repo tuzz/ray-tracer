@@ -151,5 +151,23 @@ impl<T: Mul<Output=T> + Copy> Vector3<T> {
     }
 }
 
+impl<T: Into<f64> + Copy> Vector3<T> {
+    fn cross(&self, other: &Self) -> Vector3f {
+        let self_x = self.x.into();
+        let self_y = self.y.into();
+        let self_z = self.z.into();
+
+        let other_x = other.x.into();
+        let other_y = other.y.into();
+        let other_z = other.z.into();
+
+        let x = (self_y * other_z) - (self_z * other_y);
+        let y = (self_z * other_x) - (self_x * other_z);
+        let z = (self_x * other_y) - (self_y * other_x);
+
+        Vector3f::new(x, y, z)
+    }
+}
+
 #[cfg(test)]
 mod test;
