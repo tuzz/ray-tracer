@@ -1,4 +1,4 @@
-use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign};
+use std::ops::{Index, Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 
 #[derive(Default)]
 struct Vector3<T> {
@@ -86,6 +86,30 @@ impl<T: MulAssign + Copy> MulAssign<T> for Vector3<T> {
         self.x *= scalar;
         self.y *= scalar;
         self.z *= scalar;
+    }
+}
+
+impl<T: Into<f64>, D: Into<f64>> Div<D> for Vector3<T> {
+    type Output = Vector3f;
+
+    fn div(self, divisor: D) -> Vector3f {
+        let inverse = 1.0 / divisor.into();
+
+        let x = self.x.into() * inverse;
+        let y = self.y.into() * inverse;
+        let z = self.z.into() * inverse;
+
+        Vector3f::new(x, y, z)
+    }
+}
+
+impl<D: Into<f64>> DivAssign<D> for Vector3f {
+    fn div_assign(&mut self, divisor: D) {
+        let inverse = divisor.into().recip();
+
+        self.x *= inverse;
+        self.y *= inverse;
+        self.z *= inverse;
     }
 }
 

@@ -1,4 +1,5 @@
 use super::*;
+use assert_approx_eq::assert_approx_eq;
 
 type Subject<T> = Vector3<T>;
 
@@ -142,5 +143,29 @@ mod multiplication {
         assert_eq!(subject.x, 4);
         assert_eq!(subject.y, 8);
         assert_eq!(subject.z, 12);
+    }
+}
+
+mod division {
+    use super::*;
+
+    #[test]
+    fn it_divides_by_a_divisor() {
+        let subject = Subject::new(1, 2, 3) / 10;
+
+        assert_approx_eq!(subject.x, 0.1);
+        assert_approx_eq!(subject.y, 0.2);
+        assert_approx_eq!(subject.z, 0.3);
+    }
+
+    #[test]
+    fn it_can_mutate_the_vector() {
+        let mut subject = Subject::new(1.0, 2.0, 3.0);
+
+        subject /= 10;
+
+        assert_approx_eq!(subject.x, 0.1);
+        assert_approx_eq!(subject.y, 0.2);
+        assert_approx_eq!(subject.z, 0.3);
     }
 }
