@@ -335,3 +335,35 @@ mod max_dimension {
         assert_eq!(subject.max_dimension(), 2);
     }
 }
+
+mod min {
+    use super::*;
+
+    #[test]
+    fn it_returns_a_vector_of_the_component_wise_minimums() {
+        let a = Subject::new(1, 9, 3);
+        let b = Subject::new(9, 2, 9);
+
+        let subject = a.min(&b);
+
+        assert_eq!(subject.x, 1);
+        assert_eq!(subject.y, 2);
+        assert_eq!(subject.z, 3);
+    }
+}
+
+mod max {
+    use super::*;
+
+    #[test]
+    fn it_returns_a_vector_of_the_component_wise_maximums() {
+        let a = Subject::new(1, 0, 3);
+        let b = Subject::new(0, 2, 0);
+
+        let subject = a.max(&b);
+
+        assert_eq!(subject.x, 1);
+        assert_eq!(subject.y, 2);
+        assert_eq!(subject.z, 3);
+    }
+}

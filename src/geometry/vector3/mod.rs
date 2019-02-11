@@ -212,6 +212,22 @@ impl<T: Ord + Copy> Vector3<T> {
             if self.y > self.z { 1 } else { 2 }
         }
     }
+
+    fn min(&self, other: &Self) -> Self {
+        let x = min(self.x, other.x);
+        let y = min(self.y, other.y);
+        let z = min(self.z, other.z);
+
+        Self::new(x, y, z)
+    }
+
+    fn max(&self, other: &Self) -> Self {
+        let x = max(self.x, other.x);
+        let y = max(self.y, other.y);
+        let z = max(self.z, other.z);
+
+        Self::new(x, y, z)
+    }
 }
 
 #[cfg(test)]
