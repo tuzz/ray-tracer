@@ -1,9 +1,9 @@
 use std::ops::Index;
 
 struct Vector3<T> {
-    x: T,
-    y: T,
-    z: T,
+    pub x: T,
+    pub y: T,
+    pub z: T,
 }
 
 type Vector3f = Vector3<f64>;

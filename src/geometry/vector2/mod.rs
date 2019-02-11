@@ -1,8 +1,8 @@
 use std::ops::Index;
 
 struct Vector2<T> {
-    x: T,
-    y: T,
+    pub x: T,
+    pub y: T,
 }
 
 type Vector2f = Vector2<f64>;
