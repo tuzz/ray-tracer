@@ -190,3 +190,18 @@ mod abs {
         assert_eq!(subject.y, 2);
     }
 }
+
+mod dot {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_dot_product_of_two_vectors() {
+        let a = Subject::new(1, 2);
+        let b = Subject::new(3, 4);
+
+        let subject = a.dot(&b);
+
+        assert_eq!(subject.x, 3);
+        assert_eq!(subject.y, 8);
+    }
+}

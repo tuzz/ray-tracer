@@ -204,3 +204,19 @@ mod abs {
         assert_eq!(subject.z, 3);
     }
 }
+
+mod dot {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_dot_product_of_two_vectors() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(4, 5, 6);
+
+        let subject = a.dot(&b);
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 10);
+        assert_eq!(subject.z, 18);
+    }
+}

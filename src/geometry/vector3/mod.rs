@@ -133,6 +133,15 @@ impl Vector3i {
     }
 }
 
+impl<T: Mul<Output=T> + Copy> Vector3<T> {
+    fn dot(&self, other: &Self) -> Self {
+        let x = self.x * other.x;
+        let y = self.y * other.y;
+        let z = self.z * other.z;
+
+        Self::new(x, y, z)
+    }
+}
 
 #[cfg(test)]
 mod test;

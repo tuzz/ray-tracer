@@ -123,5 +123,14 @@ impl Vector2i {
     }
 }
 
+impl<T: Mul<Output=T> + Copy> Vector2<T> {
+    fn dot(&self, other: &Self) -> Self {
+        let x = self.x * other.x;
+        let y = self.y * other.y;
+
+        Self::new(x, y)
+    }
+}
+
 #[cfg(test)]
 mod test;
