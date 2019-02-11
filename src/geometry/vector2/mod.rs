@@ -1,4 +1,4 @@
-use std::ops::{Index, Add, AddAssign};
+use std::ops::{Index, Add, AddAssign, Sub, SubAssign};
 
 #[derive(Default)]
 struct Vector2<T> {
@@ -42,6 +42,24 @@ impl<T: AddAssign> AddAssign for Vector2<T> {
     fn add_assign(&mut self, other: Self) {
         self.x += other.x;
         self.y += other.y;
+    }
+}
+
+impl<T: Sub<Output=T>> Sub for Vector2<T> {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        let x = self.x - other.x;
+        let y = self.y - other.y;
+
+        Self::new(x, y)
+    }
+}
+
+impl<T: SubAssign> SubAssign for Vector2<T> {
+    fn sub_assign(&mut self, other: Self) {
+        self.x -= other.x;
+        self.y -= other.y;
     }
 }
 

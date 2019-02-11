@@ -91,3 +91,32 @@ mod addition {
         assert_eq!(subject.z, 9);
     }
 }
+
+mod subtraction {
+    use super::*;
+
+    #[test]
+    fn it_subtracts_the_components() {
+        let a = Subject::new(5, 5, 5);
+        let b = Subject::new(1, 2, 3);
+
+        let subject = a - b;
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 3);
+        assert_eq!(subject.z, 2);
+    }
+
+    #[test]
+    fn it_can_mutate_the_vector() {
+        let a = Subject::new(5, 5, 5);
+        let b = Subject::new(1, 2, 3);
+
+        let mut subject = a;
+        subject -= b;
+
+        assert_eq!(subject.x, 4);
+        assert_eq!(subject.y, 3);
+        assert_eq!(subject.z, 2);
+    }
+}
