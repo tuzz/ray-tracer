@@ -35,3 +35,17 @@ mod index {
         subject[3];
     }
 }
+
+mod aliases {
+    use super::*;
+
+    #[test]
+    fn it_has_a_type_alias_for_a_vector_of_signed_integers() {
+        Vector3i::new(-1 as i32, 2, -3);
+    }
+
+    #[test]
+    fn it_has_a_type_alias_for_a_vector_of_double_precision_floats() {
+        Vector3f::new(0.1 as f64, 0.2, 0.3);
+    }
+}

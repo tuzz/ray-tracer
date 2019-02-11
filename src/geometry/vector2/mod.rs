@@ -5,6 +5,9 @@ struct Vector2<T> {
     y: T,
 }
 
+type Vector2f = Vector2<f64>;
+type Vector2i = Vector2<i32>;
+
 impl<T> Vector2<T> {
     fn new(x: T, y: T) -> Self {
         Self { x, y }

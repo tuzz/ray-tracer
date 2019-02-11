@@ -6,6 +6,9 @@ struct Vector3<T> {
     z: T,
 }
 
+type Vector3f = Vector3<f64>;
+type Vector3i = Vector3<i32>;
+
 impl<T> Vector3<T> {
     fn new(x: T, y: T, z: T) -> Self {
         Self { x, y, z }
