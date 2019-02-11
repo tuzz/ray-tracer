@@ -111,5 +111,17 @@ impl<T: Neg<Output=T>> Neg for Vector2<T> {
     }
 }
 
+impl Vector2f {
+    fn abs(&self) -> Self {
+        Self::new(self.x.abs(), self.y.abs())
+    }
+}
+
+impl Vector2i {
+    fn abs(&self) -> Self {
+        Self::new(self.x.abs(), self.y.abs())
+    }
+}
+
 #[cfg(test)]
 mod test;
