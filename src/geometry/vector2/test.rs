@@ -1,5 +1,5 @@
-use super::*;
 use assert_approx_eq::assert_approx_eq;
+use super::*;
 
 type Subject<T> = Vector2<T>;
 
@@ -10,28 +10,20 @@ mod new {
     fn it_builds_a_two_dimensional_vector() {
         let subject = Subject::new(1, 2);
 
-        assert_eq!(subject.x, 1);
-        assert_eq!(subject.y, 2);
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
     }
 }
 
-mod index {
+mod components {
     use super::*;
 
     #[test]
-    fn it_can_index_into_fields_of_the_struct() {
+    fn it_can_iterate_over_components_of_the_struct() {
         let subject = Subject::new(1, 2);
+        let iter = subject.components.iter();
 
-        assert_eq!(subject[0], 1);
-        assert_eq!(subject[1], 2);
-    }
-
-    #[test]
-    #[should_panic(expected = "index out of bounds: 2")]
-    fn it_panics_if_out_of_bounds() {
-        let subject = Subject::new(1, 2);
-
-        subject[2];
+        assert_eq!(iter.as_slice(), &[1, 2]);
     }
 }
 
@@ -56,8 +48,8 @@ mod default {
     fn it_sets_x_and_y_to_zero() {
         let subject = Subject::<u32>::default();
 
-        assert_eq!(subject.x, 0);
-        assert_eq!(subject.y, 0);
+        assert_eq!(subject.x(), 0);
+        assert_eq!(subject.y(), 0);
     }
 }
 
@@ -71,8 +63,8 @@ mod addition {
 
         let subject = a + b;
 
-        assert_eq!(subject.x, 4);
-        assert_eq!(subject.y, 6);
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 6);
     }
 
     #[test]
@@ -83,8 +75,8 @@ mod addition {
         let mut subject = a;
         subject += b;
 
-        assert_eq!(subject.x, 4);
-        assert_eq!(subject.y, 6);
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 6);
     }
 }
 
@@ -98,8 +90,8 @@ mod subtraction {
 
         let subject = a - b;
 
-        assert_eq!(subject.x, 4);
-        assert_eq!(subject.y, 3);
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 3);
     }
 
     #[test]
@@ -110,8 +102,8 @@ mod subtraction {
         let mut subject = a;
         subject -= b;
 
-        assert_eq!(subject.x, 4);
-        assert_eq!(subject.y, 3);
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 3);
     }
 }
 
@@ -122,8 +114,8 @@ mod multiplication {
     fn it_multiplies_by_a_scalar() {
         let subject = Subject::new(1, 2) * 3;
 
-        assert_eq!(subject.x, 3);
-        assert_eq!(subject.y, 6);
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 6);
     }
 
     #[test]
@@ -132,8 +124,8 @@ mod multiplication {
 
         subject *= 3;
 
-        assert_eq!(subject.x, 3);
-        assert_eq!(subject.y, 6);
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 6);
     }
 }
 
@@ -144,8 +136,8 @@ mod division {
     fn it_divides_by_a_divisor() {
         let subject = Subject::new(1, 2) / 10;
 
-        assert_approx_eq!(subject.x, 0.1);
-        assert_approx_eq!(subject.y, 0.2);
+        assert_approx_eq!(subject.x(), 0.1);
+        assert_approx_eq!(subject.y(), 0.2);
     }
 
     #[test]
@@ -154,8 +146,8 @@ mod division {
 
         subject /= 10;
 
-        assert_approx_eq!(subject.x, 0.1);
-        assert_approx_eq!(subject.y, 0.2);
+        assert_approx_eq!(subject.x(), 0.1);
+        assert_approx_eq!(subject.y(), 0.2);
     }
 }
 
@@ -166,8 +158,8 @@ mod negation {
     fn it_returns_a_vector_pointing_in_the_opposite_direction() {
         let subject = -Subject::new(1, 2);
 
-        assert_eq!(subject.x, -1);
-        assert_eq!(subject.y, -2);
+        assert_eq!(subject.x(), -1);
+        assert_eq!(subject.y(), -2);
     }
 }
 
@@ -178,16 +170,16 @@ mod abs {
     fn it_can_take_the_absolute_value_of_vector2f_components() {
         let subject = Subject::new(-1.0, -2.0).abs();
 
-        assert_eq!(subject.x, 1.0);
-        assert_eq!(subject.y, 2.0);
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
     }
 
     #[test]
     fn it_can_take_the_absolute_value_of_vector2i_components() {
         let subject = Subject::new(-1, -2).abs();
 
-        assert_eq!(subject.x, 1);
-        assert_eq!(subject.y, 2);
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
     }
 }
 
@@ -201,8 +193,8 @@ mod dot {
 
         let subject = a.dot(&b);
 
-        assert_eq!(subject.x, 3);
-        assert_eq!(subject.y, 8);
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 8);
     }
 }
 
@@ -216,8 +208,8 @@ mod abs_dot {
 
         let subject = a.abs_dot(&b);
 
-        assert_eq!(subject.x, 3);
-        assert_eq!(subject.y, 8);
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 8);
     }
 }
 
@@ -251,8 +243,8 @@ mod normalize {
         let subject = Subject::new(1, 2).normalize();
         let divisor = f64::sqrt(5.0);
 
-        assert_eq!(subject.x, 1.0 / divisor);
-        assert_eq!(subject.y, 2.0 / divisor);
+        assert_eq!(subject.x(), 1.0 / divisor);
+        assert_eq!(subject.y(), 2.0 / divisor);
     }
 }
 
@@ -310,8 +302,8 @@ mod min {
 
         let subject = a.min(&b);
 
-        assert_eq!(subject.x, 1);
-        assert_eq!(subject.y, 2);
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
     }
 }
 
@@ -325,8 +317,8 @@ mod max {
 
         let subject = a.max(&b);
 
-        assert_eq!(subject.x, 1);
-        assert_eq!(subject.y, 2);
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
     }
 }
 
@@ -340,10 +332,10 @@ mod permute {
         let permute_01 = subject.permute(0, 1);
         let permute_10 = subject.permute(1, 0);
 
-        assert_eq!(permute_01.x, 5);
-        assert_eq!(permute_01.y, 6);
+        assert_eq!(permute_01.x(), 5);
+        assert_eq!(permute_01.y(), 6);
 
-        assert_eq!(permute_10.x, 6);
-        assert_eq!(permute_10.y, 5);
+        assert_eq!(permute_10.x(), 6);
+        assert_eq!(permute_10.y(), 5);
     }
 }
