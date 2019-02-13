@@ -73,7 +73,7 @@ mod addition {
         let point = Subject::new(1, 2, 3);
         let vector = Vector3::new(4, 5, 6);
 
-        let subject: Subject<_> = point + vector;
+        let subject: Subject<_> = point + &vector;
 
         assert_eq!(subject.x(), 5);
         assert_eq!(subject.y(), 7);
@@ -86,7 +86,7 @@ mod addition {
         let vector = Vector3::new(4, 5, 6);
 
         let mut subject = point;
-        subject += vector;
+        subject += &vector;
 
         assert_eq!(subject.x(), 5);
         assert_eq!(subject.y(), 7);
@@ -102,7 +102,7 @@ mod subtraction {
         let a = Subject::new(5, 5, 5);
         let b = Subject::new(1, 2, 3);
 
-        let vector: Vector3<_> = a - b;
+        let vector: Vector3<_> = a - &b;
 
         assert_eq!(vector.x(), 4);
         assert_eq!(vector.y(), 3);
@@ -114,7 +114,7 @@ mod subtraction {
         let point = Subject::new(5, 5, 5);
         let vector = Vector3::new(1, 2, 3);
 
-        let subject: Subject<_> = point - vector;
+        let subject: Subject<_> = point - &vector;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 3);
@@ -127,7 +127,7 @@ mod subtraction {
         let vector = Vector3::new(1, 2, 3);
 
         let mut subject = point;
-        subject -= vector;
+        subject -= &vector;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 3);
