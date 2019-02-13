@@ -1,5 +1,6 @@
 use assert_approx_eq::assert_approx_eq;
 use super::*;
+use crate::geometry::point2::Point2;
 
 type Subject<T> = Vector2<T>;
 
@@ -59,6 +60,14 @@ mod conversions {
     #[test]
     fn it_can_build_a_vector2_from_an_iterator() {
         let subject: Subject<_> = (1..3).into();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+    }
+
+    #[test]
+    fn it_can_build_a_vector2_from_a_point2() {
+        let subject: Subject<_> = Point2::new(1, 2).into();
 
         assert_eq!(subject.x(), 1);
         assert_eq!(subject.y(), 2);

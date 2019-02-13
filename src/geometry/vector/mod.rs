@@ -1,6 +1,7 @@
 use generic_array::{ArrayLength, GenericArray};
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 use std::cmp::{min, max};
+use super::point::Point;
 
 #[derive(Default)]
 pub struct Vector<T, N: ArrayLength<T>> {
@@ -13,6 +14,12 @@ impl<T, N: ArrayLength<T>, I, X> From<I> for Vector<T, N>
 {
     fn from(iter: I) -> Self {
         Self { components: GenericArray::from_exact_iter(iter).unwrap() }
+    }
+}
+
+impl <T, N: ArrayLength<T>> From<Point<T, N>> for Vector<T, N> {
+    fn from(point: Point<T, N>) -> Self {
+        Self { components: point.components }
     }
 }
 
