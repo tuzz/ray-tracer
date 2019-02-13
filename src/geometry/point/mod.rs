@@ -1,6 +1,7 @@
 use generic_array::{ArrayLength, GenericArray};
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 use super::vector::Vector;
+use std::cmp::{min, max};
 
 #[derive(Default)]
 pub struct Point<T, N: ArrayLength<T>> {
@@ -150,6 +151,22 @@ impl<T: Into<f64> + Copy, N: ArrayLength<T> + ArrayLength<f64>> Point<T, N> {
         self.components.iter()
             .zip(other.components.iter())
             .map(|(&a, &b)| a.into() * remainder + b.into() * time)
+            .into()
+    }
+}
+
+impl<T: Ord + Copy, N: ArrayLength<T>> Point<T, N> {
+    pub fn min(&self, other: &Self) -> Self {
+        self.components.iter()
+            .zip(other.components.iter())
+            .map(|(&a, &b)| min(a, b))
+            .into()
+    }
+
+    pub fn max(&self, other: &Self) -> Self {
+        self.components.iter()
+            .zip(other.components.iter())
+            .map(|(&a, &b)| max(a, b))
             .into()
     }
 }
