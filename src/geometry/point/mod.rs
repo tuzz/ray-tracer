@@ -36,7 +36,10 @@ impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Self> for Point<T, N> {
     type Output = Self;
 
     fn add(self, other: &Self) -> Self::Output {
-        self.components.iter().zip(other.components.iter()).map(|(&a, &b)| a + b).into()
+        self.components.iter()
+            .zip(other.components.iter())
+            .map(|(&a, &b)| a + b)
+            .into()
     }
 }
 
@@ -44,13 +47,18 @@ impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Vector<T, N>> for Point<T,
     type Output = Self;
 
     fn add(self, vector: &Vector<T, N>) -> Self::Output {
-        self.components.iter().zip(vector.components.iter()).map(|(&a, &b)| a + b).into()
+        self.components.iter()
+            .zip(vector.components.iter())
+            .map(|(&a, &b)| a + b)
+            .into()
     }
 }
 
 impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<&Vector<T, N>> for Point<T, N> {
     fn add_assign(&mut self, vector: &Vector<T, N>) {
-        self.components.iter_mut().zip(vector.components.iter()).for_each(|(a, b)| *a += *b);
+        self.components.iter_mut()
+            .zip(vector.components.iter())
+            .for_each(|(a, b)| *a += *b);
     }
 }
 
@@ -58,7 +66,10 @@ impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<&Self> for Point<T, N> {
     type Output = Vector<T, N>;
 
     fn sub(self, other: &Self) -> Self::Output {
-        self.components.iter().zip(other.components.iter()).map(|(a, b)| *a - *b).into()
+        self.components.iter()
+            .zip(other.components.iter())
+            .map(|(a, b)| *a - *b)
+            .into()
     }
 }
 
@@ -66,13 +77,18 @@ impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<&Vector<T, N>> for Point<T,
     type Output = Self;
 
     fn sub(self, vector: &Vector<T, N>) -> Self::Output {
-        self.components.iter().zip(vector.components.iter()).map(|(&a, &b)| a - b).into()
+        self.components.iter()
+            .zip(vector.components.iter())
+            .map(|(&a, &b)| a - b)
+            .into()
     }
 }
 
 impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign<&Vector<T, N>> for Point<T, N> {
     fn sub_assign(&mut self, vector: &Vector<T, N>) {
-        self.components.iter_mut().zip(vector.components.iter()).for_each(|(a, b)| *a -= *b);
+        self.components.iter_mut()
+            .zip(vector.components.iter())
+            .for_each(|(a, b)| *a -= *b);
     }
 }
 
