@@ -93,3 +93,32 @@ mod addition {
         assert_eq!(subject.z(), 9);
     }
 }
+
+mod subtraction {
+    use super::*;
+
+    #[test]
+    fn it_can_subtract_a_vector_from_the_point() {
+        let point = Subject::new(5, 5, 5);
+        let vector = Vector3::new(1, 2, 3);
+
+        let subject: Subject<_> = point - vector;
+
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 3);
+        assert_eq!(subject.z(), 2);
+    }
+
+    #[test]
+    fn it_can_mutate_the_point() {
+        let point = Subject::new(5, 5, 5);
+        let vector = Vector3::new(1, 2, 3);
+
+        let mut subject = point;
+        subject -= vector;
+
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 3);
+        assert_eq!(subject.z(), 2);
+    }
+}

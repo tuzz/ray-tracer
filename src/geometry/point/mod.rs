@@ -1,5 +1,5 @@
 use generic_array::{ArrayLength, GenericArray};
-use std::ops::{Add, AddAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign};
 use super::vector::Vector;
 
 #[derive(Default)]
@@ -43,5 +43,19 @@ impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<Vector<T, N>> for Point<T, 
 impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<Vector<T, N>> for Point<T, N> {
     fn add_assign(&mut self, vector: Vector<T, N>) {
         self.components.iter_mut().zip(vector.components).for_each(|(a, b)| *a += b);
+    }
+}
+
+impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<Vector<T, N>> for Point<T, N> {
+    type Output = Self;
+
+    fn sub(self, vector: Vector<T, N>) -> Self::Output {
+        self.components.iter().zip(vector.components).map(|(a, b)| *a - b).into()
+    }
+}
+
+impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign<Vector<T, N>> for Point<T, N> {
+    fn sub_assign(&mut self, vector: Vector<T, N>) {
+        self.components.iter_mut().zip(vector.components).for_each(|(a, b)| *a -= b);
     }
 }
