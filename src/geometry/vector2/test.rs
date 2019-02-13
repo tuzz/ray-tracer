@@ -155,7 +155,7 @@ mod division {
 
     #[test]
     fn it_divides_by_a_divisor() {
-        let subject = Subject::new(1, 2) / 10;
+        let subject: Subject<_> = Subject::new(1, 2) / 10;
 
         assert_approx_eq!(subject.x(), 0.1);
         assert_approx_eq!(subject.y(), 0.2);

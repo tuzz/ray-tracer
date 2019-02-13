@@ -1,5 +1,5 @@
 use generic_array::{ArrayLength, GenericArray};
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 use super::vector::Vector;
 
 #[derive(Default)]
@@ -108,5 +108,37 @@ impl<T: Sub<Output=T> + Copy + Into<f64>, N: ArrayLength<T>> Point<T, N> {
 impl<T: Clone, N: ArrayLength<T>> Clone for Point<T, N> {
     fn clone(&self) -> Self {
         self.components.iter().map(|a| a.clone()).into()
+    }
+}
+
+impl<T: Mul<Output=T> + Copy, N: ArrayLength<T>> Mul<T> for Point<T, N> {
+    type Output = Self;
+
+    fn mul(self, scalar: T) -> Self::Output {
+        self.components.iter().map(|a| *a * scalar).into()
+    }
+}
+
+impl<T: MulAssign + Copy, N: ArrayLength<T>> MulAssign<T> for Point<T, N> {
+    fn mul_assign(&mut self, scalar: T) {
+        self.components.iter_mut().for_each(|a| *a *= scalar);
+    }
+}
+
+impl<T: Into<f64> + Copy, D: Into<f64>, N: ArrayLength<T> + ArrayLength<f64>> Div<D> for Point<T, N> {
+    type Output = Point<f64, N>;
+
+    fn div(self, divisor: D) -> Self::Output {
+        let inverse = divisor.into().recip();
+
+        self.components.iter().map(|&a| a.into() * inverse).into()
+    }
+}
+
+impl<D: Into<f64>, N: ArrayLength<f64>> DivAssign<D> for Point<f64, N> {
+    fn div_assign(&mut self, divisor: D) {
+        let inverse = divisor.into().recip();
+
+        self.components.iter_mut().for_each(|a| *a *= inverse);
     }
 }

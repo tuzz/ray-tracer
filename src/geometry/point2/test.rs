@@ -1,3 +1,4 @@
+use assert_approx_eq::assert_approx_eq;
 use super::*;
 use crate::geometry::vector2::Vector2;
 
@@ -166,5 +167,49 @@ mod distance_squared {
         let b = Subject::new(5, 5);
 
         assert_eq!(a.distance_squared(&b), 25.0);
+    }
+}
+
+mod multiplication {
+    use super::*;
+
+    #[test]
+    fn it_multiplies_by_a_scalar() {
+        let subject = Subject::new(1, 2) * 3;
+
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 6);
+    }
+
+    #[test]
+    fn it_can_mutate_the_point() {
+        let mut subject = Subject::new(1, 2);
+
+        subject *= 3;
+
+        assert_eq!(subject.x(), 3);
+        assert_eq!(subject.y(), 6);
+    }
+}
+
+mod division {
+    use super::*;
+
+    #[test]
+    fn it_divides_by_a_divisor() {
+        let subject: Subject<_> = Subject::new(1, 2) / 10;
+
+        assert_approx_eq!(subject.x(), 0.1);
+        assert_approx_eq!(subject.y(), 0.2);
+    }
+
+    #[test]
+    fn it_can_mutate_the_point() {
+        let mut subject = Subject::new(1.0, 2.0);
+
+        subject /= 10;
+
+        assert_approx_eq!(subject.x(), 0.1);
+        assert_approx_eq!(subject.y(), 0.2);
     }
 }
