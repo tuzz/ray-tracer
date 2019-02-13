@@ -23,31 +23,31 @@ impl <T, N: ArrayLength<T>> From<Point<T, N>> for Vector<T, N> {
     }
 }
 
-impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add for Vector<T, N> {
+impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Self> for Vector<T, N> {
     type Output = Self;
 
-    fn add(self, other: Self) -> Self::Output {
-        self.components.iter().zip(other.components).map(|(a, b)| *a + b).into()
+    fn add(self, other: &Self) -> Self::Output {
+        self.components.iter().zip(other.components.iter()).map(|(a, b)| *a + *b).into()
     }
 }
 
-impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign for Vector<T, N> {
-    fn add_assign(&mut self, other: Self) {
-        self.components.iter_mut().zip(other.components).for_each(|(a, b)| *a += b);
+impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<&Self> for Vector<T, N> {
+    fn add_assign(&mut self, other: &Self) {
+        self.components.iter_mut().zip(other.components.iter()).for_each(|(a, b)| *a += *b);
     }
 }
 
-impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub for Vector<T, N> {
+impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<&Self> for Vector<T, N> {
     type Output = Self;
 
-    fn sub(self, other: Self) -> Self::Output {
-        self.components.iter().zip(other.components).map(|(a, b)| *a - b).into()
+    fn sub(self, other: &Self) -> Self::Output {
+        self.components.iter().zip(other.components.iter()).map(|(a, b)| *a - *b).into()
     }
 }
 
-impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign for Vector<T, N> {
-    fn sub_assign(&mut self, other: Self) {
-        self.components.iter_mut().zip(other.components).for_each(|(a, b)| *a -= b);
+impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign<&Self> for Vector<T, N> {
+    fn sub_assign(&mut self, other: &Self) {
+        self.components.iter_mut().zip(other.components.iter()).for_each(|(a, b)| *a -= *b);
     }
 }
 

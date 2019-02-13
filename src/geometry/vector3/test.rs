@@ -86,7 +86,7 @@ mod addition {
         let a = Subject::new(1, 2, 3);
         let b = Subject::new(4, 5, 6);
 
-        let subject = a + b;
+        let subject = a + &b;
 
         assert_eq!(subject.x(), 5);
         assert_eq!(subject.y(), 7);
@@ -99,7 +99,7 @@ mod addition {
         let b = Subject::new(4, 5, 6);
 
         let mut subject = a;
-        subject += b;
+        subject += &b;
 
         assert_eq!(subject.x(), 5);
         assert_eq!(subject.y(), 7);
@@ -115,7 +115,7 @@ mod subtraction {
         let a = Subject::new(5, 5, 5);
         let b = Subject::new(1, 2, 3);
 
-        let subject = a - b;
+        let subject = a - &b;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 3);
@@ -128,7 +128,7 @@ mod subtraction {
         let b = Subject::new(1, 2, 3);
 
         let mut subject = a;
-        subject -= b;
+        subject -= &b;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 3);
