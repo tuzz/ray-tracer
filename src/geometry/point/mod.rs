@@ -170,3 +170,15 @@ impl<T: Ord + Copy, N: ArrayLength<T>> Point<T, N> {
             .into()
     }
 }
+
+impl<N: ArrayLength<f64>> Point<f64, N> {
+    pub fn abs(&self) -> Self {
+        self.components.iter().map(|&a| a.abs()).into()
+    }
+}
+
+impl<N: ArrayLength<i32>> Point<i32, N> {
+    pub fn abs(&self) -> Self {
+        self.components.iter().map(|&a| a.abs()).into()
+    }
+}

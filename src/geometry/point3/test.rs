@@ -267,3 +267,25 @@ mod max {
         assert_eq!(subject.z(), 3);
     }
 }
+
+mod abs {
+    use super::*;
+
+    #[test]
+    fn it_can_take_the_absolute_value_of_point2f_components() {
+        let subject = Subject::new(-1.0, -2.0, -3.0).abs();
+
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
+        assert_eq!(subject.z(), 3.0);
+    }
+
+    #[test]
+    fn it_can_take_the_absolute_value_of_point2i_components() {
+        let subject = Subject::new(-1, -2, -3).abs();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+        assert_eq!(subject.z(), 3);
+    }
+}
