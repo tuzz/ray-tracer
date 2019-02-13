@@ -98,6 +98,18 @@ mod subtraction {
     use super::*;
 
     #[test]
+    fn it_can_subtract_one_point_from_another_to_return_a_vector() {
+        let a = Subject::new(5, 5, 5);
+        let b = Subject::new(1, 2, 3);
+
+        let vector: Vector3<_> = a - b;
+
+        assert_eq!(vector.x(), 4);
+        assert_eq!(vector.y(), 3);
+        assert_eq!(vector.z(), 2);
+    }
+
+    #[test]
     fn it_can_subtract_a_vector_from_the_point() {
         let point = Subject::new(5, 5, 5);
         let vector = Vector3::new(1, 2, 3);

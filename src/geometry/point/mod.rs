@@ -46,6 +46,14 @@ impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<Vector<T, N>> for Point<T
     }
 }
 
+impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub for Point<T, N> {
+    type Output = Vector<T, N>;
+
+    fn sub(self, other: Self) -> Self::Output {
+        self.components.iter().zip(other.components).map(|(a, b)| *a - b).into()
+    }
+}
+
 impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<Vector<T, N>> for Point<T, N> {
     type Output = Self;
 
