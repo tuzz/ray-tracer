@@ -27,3 +27,15 @@ mod aliases {
         Point2f::new(0.1 as f64, 0.2);
     }
 }
+
+mod default {
+    use super::*;
+
+    #[test]
+    fn it_sets_x_and_y_to_zero() {
+        let subject = Subject::<u32>::default();
+
+        assert_eq!(subject.x(), 0);
+        assert_eq!(subject.y(), 0);
+    }
+}
