@@ -1,4 +1,6 @@
 use generic_array::{ArrayLength, GenericArray};
+use std::ops::{Add, AddAssign};
+use super::vector::Vector;
 
 #[derive(Default)]
 pub struct Point<T, N: ArrayLength<T>> {
@@ -27,5 +29,19 @@ impl<T, U, N: ArrayLength<T> + ArrayLength<U>> From<Point<U, N>> for Point<T, N>
 {
     fn from(p: Point<U, N>) -> Self {
         p.components.iter().map(|&a| a.into()).into()
+    }
+}
+
+impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<Vector<T, N>> for Point<T, N> {
+    type Output = Self;
+
+    fn add(self, vector: Vector<T, N>) -> Self::Output {
+        self.components.iter().zip(vector.components).map(|(a, b)| *a + b).into()
+    }
+}
+
+impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<Vector<T, N>> for Point<T, N> {
+    fn add_assign(&mut self, vector: Vector<T, N>) {
+        self.components.iter_mut().zip(vector.components).for_each(|(a, b)| *a += b);
     }
 }

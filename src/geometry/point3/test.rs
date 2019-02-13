@@ -1,4 +1,5 @@
 use super::*;
+use crate::geometry::vector3::Vector3;
 
 type Subject<T> = Point3<T>;
 
@@ -61,5 +62,34 @@ mod conversions {
         assert_eq!(subject.x(), 1.0);
         assert_eq!(subject.y(), 2.0);
         assert_eq!(subject.z(), 3.0);
+    }
+}
+
+mod addition {
+    use super::*;
+
+    #[test]
+    fn it_can_add_a_vector_to_the_point() {
+        let point = Subject::new(1, 2, 3);
+        let vector = Vector3::new(4, 5, 6);
+
+        let subject: Subject<_> = point + vector;
+
+        assert_eq!(subject.x(), 5);
+        assert_eq!(subject.y(), 7);
+        assert_eq!(subject.z(), 9);
+    }
+
+    #[test]
+    fn it_can_mutate_the_point() {
+        let point = Subject::new(1, 2, 3);
+        let vector = Vector3::new(4, 5, 6);
+
+        let mut subject = point;
+        subject += vector;
+
+        assert_eq!(subject.x(), 5);
+        assert_eq!(subject.y(), 7);
+        assert_eq!(subject.z(), 9);
     }
 }
