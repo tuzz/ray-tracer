@@ -19,6 +19,12 @@ impl<T: Copy> Point3<T> {
     pub fn z(&self) -> T {
         self.components[2]
     }
+
+    pub fn permute(&self, x: usize, y: usize, z: usize) -> Self {
+        let c = &self.components;
+
+        Self::new(c[x], c[y], c[z])
+    }
 }
 
 pub type Point3f = Point3<f64>;

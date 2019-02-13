@@ -302,3 +302,21 @@ mod ceil {
         assert_eq!(subject.y(), 3.0);
     }
 }
+
+mod permute {
+    use super::*;
+
+    #[test]
+    fn it_permutes_the_component_values_according_to_the_indexes() {
+        let subject = Subject::new(5, 6);
+
+        let permute_01 = subject.permute(0, 1);
+        let permute_10 = subject.permute(1, 0);
+
+        assert_eq!(permute_01.x(), 5);
+        assert_eq!(permute_01.y(), 6);
+
+        assert_eq!(permute_10.x(), 6);
+        assert_eq!(permute_10.y(), 5);
+    }
+}

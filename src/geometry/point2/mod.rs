@@ -16,6 +16,10 @@ impl<T: Copy> Point2<T> {
     pub fn y(&self) -> T {
         self.components[1]
     }
+
+    pub fn permute(&self, x: usize, y: usize) -> Self {
+        Self::new(self.components[x], self.components[y])
+    }
 }
 
 impl<T> From<Point3<T>> for Point2<T> {
