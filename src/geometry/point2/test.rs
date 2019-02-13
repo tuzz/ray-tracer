@@ -50,4 +50,12 @@ mod conversions {
         assert_eq!(subject.x(), 1);
         assert_eq!(subject.y(), 2);
     }
+
+    #[test]
+    fn it_can_build_a_point2_from_a_point2_with_different_component_types() {
+        let subject: Point2f = Point2i::new(1, 2).into();
+
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
+    }
 }

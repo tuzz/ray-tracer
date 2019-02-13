@@ -41,3 +41,16 @@ mod default {
         assert_eq!(subject.z(), 0);
     }
 }
+
+mod conversions {
+    use super::*;
+
+    #[test]
+    fn it_can_build_a_point3_from_a_point3_with_different_component_types() {
+        let subject: Point3f = Point3i::new(1, 2, 3).into();
+
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
+        assert_eq!(subject.z(), 3.0);
+    }
+}
