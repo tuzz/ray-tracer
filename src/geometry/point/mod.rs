@@ -32,6 +32,14 @@ impl<T, U, N: ArrayLength<T> + ArrayLength<U>> From<Point<U, N>> for Point<T, N>
     }
 }
 
+impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Self> for Point<T, N> {
+    type Output = Self;
+
+    fn add(self, other: &Self) -> Self::Output {
+        self.components.iter().zip(other.components.iter()).map(|(&a, &b)| a + b).into()
+    }
+}
+
 impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Vector<T, N>> for Point<T, N> {
     type Output = Self;
 

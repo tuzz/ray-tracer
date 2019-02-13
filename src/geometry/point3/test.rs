@@ -69,6 +69,18 @@ mod addition {
     use super::*;
 
     #[test]
+    fn it_can_add_one_point_to_another_to_return_a_point() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(4, 5, 6);
+
+        let subject: Subject<_> = a + &b;
+
+        assert_eq!(subject.x(), 5);
+        assert_eq!(subject.y(), 7);
+        assert_eq!(subject.z(), 9);
+    }
+
+    #[test]
     fn it_can_add_a_vector_to_the_point() {
         let point = Subject::new(1, 2, 3);
         let vector = Vector3::new(4, 5, 6);
