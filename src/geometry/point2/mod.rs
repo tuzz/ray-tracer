@@ -17,5 +17,8 @@ impl<T: Copy> Point2<T> {
     }
 }
 
+pub type Point2f = Point2<f64>;
+pub type Point2i = Point2<i32>;
+
 #[cfg(test)]
 mod test;

@@ -21,5 +21,8 @@ impl<T: Copy> Point3<T> {
     }
 }
 
+pub type Point3f = Point3<f64>;
+pub type Point3i = Point3<i32>;
+
 #[cfg(test)]
 mod test;
