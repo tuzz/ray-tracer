@@ -55,6 +55,19 @@ mod default {
     }
 }
 
+mod conversions {
+    use super::*;
+
+    #[test]
+    fn it_can_build_a_vector3_from_an_iterator() {
+        let subject: Subject<_> = (1..4).into();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+        assert_eq!(subject.z(), 3);
+    }
+}
+
 mod addition {
     use super::*;
 
