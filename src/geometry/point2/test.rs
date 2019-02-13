@@ -39,3 +39,15 @@ mod default {
         assert_eq!(subject.y(), 0);
     }
 }
+
+mod conversions {
+    use super::*;
+
+    #[test]
+    fn it_can_build_a_point2_from_a_point3_by_dropping_the_z_component() {
+        let subject: Subject<_> = Point3::new(1, 2, 3).into();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+    }
+}
