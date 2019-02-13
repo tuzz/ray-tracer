@@ -213,3 +213,18 @@ mod division {
         assert_approx_eq!(subject.y(), 0.2);
     }
 }
+
+mod lerp {
+    use super::*;
+
+    #[test]
+    fn it_linearly_interpolates_between_two_points() {
+        let a = Subject::new(1, 2);
+        let b = Subject::new(5, 6);
+
+        let subject = a.lerp(&b, 0.5);
+
+        assert_eq!(subject.x(), 3.0);
+        assert_eq!(subject.y(), 4.0);
+    }
+}

@@ -135,10 +135,21 @@ impl<T: Into<f64> + Copy, D: Into<f64>, N: ArrayLength<T> + ArrayLength<f64>> Di
     }
 }
 
-impl<D: Into<f64>, N: ArrayLength<f64>> DivAssign<D> for Point<f64, N> {
+impl<D: Into<f64> + Copy, N: ArrayLength<f64>> DivAssign<D> for Point<f64, N> {
     fn div_assign(&mut self, divisor: D) {
         let inverse = divisor.into().recip();
 
         self.components.iter_mut().for_each(|a| *a *= inverse);
+    }
+}
+
+impl<T: Into<f64> + Copy, N: ArrayLength<T> + ArrayLength<f64>> Point<T, N> {
+    pub fn lerp(&self, other: &Self, time: f64) -> Point<f64, N> {
+        let remainder = 1.0 - time;
+
+        self.components.iter()
+            .zip(other.components.iter())
+            .map(|(&a, &b)| a.into() * remainder + b.into() * time)
+            .into()
     }
 }
