@@ -67,3 +67,22 @@ impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign<&Vector<T, N>> for Point<
         self.components.iter_mut().zip(vector.components.iter()).for_each(|(a, b)| *a -= *b);
     }
 }
+
+impl<T: Sub<Output=T> + Copy + Into<f64>, N: ArrayLength<T>> Point<T, N> {
+    pub fn distance(&self, other: &Self) -> f64 {
+        (self.clone() - other).length()
+    }
+}
+
+impl<T: Sub<Output=T> + Copy + Into<f64>, N: ArrayLength<T>> Point<T, N> {
+    pub fn distance_squared(&self, other: &Self) -> f64 {
+        (self.clone() - other).length_squared()
+    }
+}
+
+// Cloning GenericArray doesn't seem to work properly, so implement it manually:
+impl<T: Clone, N: ArrayLength<T>> Clone for Point<T, N> {
+    fn clone(&self) -> Self {
+        self.components.iter().map(|a| a.clone()).into()
+    }
+}

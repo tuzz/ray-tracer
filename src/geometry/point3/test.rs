@@ -134,3 +134,27 @@ mod subtraction {
         assert_eq!(subject.z(), 2);
     }
 }
+
+mod distance {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_distance_between_two_points() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(5, 5, 5);
+
+        assert_eq!(a.distance(&b), f64::sqrt(29.0));
+    }
+}
+
+mod distance_squared {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_square_of_distance_between_two_points() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(5, 5, 5);
+
+        assert_eq!(a.distance_squared(&b), 29.0);
+    }
+}
