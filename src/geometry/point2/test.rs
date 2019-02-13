@@ -278,3 +278,27 @@ mod abs {
         assert_eq!(subject.y(), 2);
     }
 }
+
+mod floor {
+    use super::*;
+
+    #[test]
+    fn it_can_take_the_floor_of_point2f_components() {
+        let subject = Subject::new(1.2, 2.3).floor();
+
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
+    }
+}
+
+mod ceil {
+    use super::*;
+
+    #[test]
+    fn it_can_take_the_ceiling_of_point2f_components() {
+        let subject = Subject::new(1.2, 2.3).ceil();
+
+        assert_eq!(subject.x(), 2.0);
+        assert_eq!(subject.y(), 3.0);
+    }
+}

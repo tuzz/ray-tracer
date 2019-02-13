@@ -289,3 +289,29 @@ mod abs {
         assert_eq!(subject.z(), 3);
     }
 }
+
+mod floor {
+    use super::*;
+
+    #[test]
+    fn it_can_take_the_floor_of_point3f_components() {
+        let subject = Subject::new(1.2, 2.3, 3.4).floor();
+
+        assert_eq!(subject.x(), 1.0);
+        assert_eq!(subject.y(), 2.0);
+        assert_eq!(subject.z(), 3.0);
+    }
+}
+
+mod ceil {
+    use super::*;
+
+    #[test]
+    fn it_can_take_the_ceiling_of_point3f_components() {
+        let subject = Subject::new(1.2, 2.3, 3.4).ceil();
+
+        assert_eq!(subject.x(), 2.0);
+        assert_eq!(subject.y(), 3.0);
+        assert_eq!(subject.z(), 4.0);
+    }
+}
