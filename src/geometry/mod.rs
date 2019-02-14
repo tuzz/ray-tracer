@@ -7,3 +7,6 @@ mod coordinate_system;
 mod point;
 mod point2;
 mod point3;
+
+mod normal;
+mod normal3;

@@ -272,7 +272,7 @@ mod abs {
     use super::*;
 
     #[test]
-    fn it_can_take_the_absolute_value_of_point2f_components() {
+    fn it_can_take_the_absolute_value_of_point3f_components() {
         let subject = Subject::new(-1.0, -2.0, -3.0).abs();
 
         assert_eq!(subject.x(), 1.0);
@@ -281,7 +281,7 @@ mod abs {
     }
 
     #[test]
-    fn it_can_take_the_absolute_value_of_point2i_components() {
+    fn it_can_take_the_absolute_value_of_point3i_components() {
         let subject = Subject::new(-1, -2, -3).abs();
 
         assert_eq!(subject.x(), 1);
