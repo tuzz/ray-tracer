@@ -219,17 +219,41 @@ mod dot {
         assert_eq!(subject.y(), 10);
         assert_eq!(subject.z(), 18);
     }
+
+    #[test]
+    fn it_returns_the_dot_product_of_the_normal_with_a_vector() {
+        let normal = Subject::new(1, 2, 3);
+        let vector = Vector3::new(4, 5, 6);
+
+        let subject = normal.dot(&vector);
+
+        assert_eq!(subject.x(), 4);
+        assert_eq!(subject.y(), 10);
+        assert_eq!(subject.z(), 18);
+    }
 }
 
 mod abs_dot {
     use super::*;
 
     #[test]
-    fn it_returns_the_absolute_value_of_the_dot_product() {
+    fn it_returns_the_absolute_value_of_the_dot_product_of_two_normals() {
         let a = Subject::new(1.0, 2.0, 3.0);
         let b = Subject::new(-4.0, -5.0, -6.0);
 
         let subject = a.abs_dot(&b);
+
+        assert_eq!(subject.x(), 4.0);
+        assert_eq!(subject.y(), 10.0);
+        assert_eq!(subject.z(), 18.0);
+    }
+
+    #[test]
+    fn it_returns_the_absolute_value_of_the_dot_product_with_a_vector() {
+        let normal = Subject::new(1.0, 2.0, 3.0);
+        let vector = Vector3::new(-4.0, -5.0, -6.0);
+
+        let subject = normal.abs_dot(&vector);
 
         assert_eq!(subject.x(), 4.0);
         assert_eq!(subject.y(), 10.0);
