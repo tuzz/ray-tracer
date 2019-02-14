@@ -280,3 +280,31 @@ mod normalize {
         assert_eq!(subject.z(), 3.0 / divisor);
     }
 }
+
+mod face_forward {
+    use super::*;
+
+    #[test]
+    fn it_ensures_the_normal_is_in_the_same_hemisphere_as_another_normal() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(-5, -5, -5);
+
+        let subject = a.face_forward(&b);
+
+        assert_eq!(subject.x(), -1);
+        assert_eq!(subject.y(), -2);
+        assert_eq!(subject.z(), -3);
+    }
+
+    #[test]
+    fn it_ensures_the_normal_is_in_the_same_hemisphere_as_the_vector() {
+        let normal = Subject::new(1, 2, 3);
+        let vector = Vector3::new(-5, -5, -5);
+
+        let subject = normal.face_forward(&vector);
+
+        assert_eq!(subject.x(), -1);
+        assert_eq!(subject.y(), -2);
+        assert_eq!(subject.z(), -3);
+    }
+}

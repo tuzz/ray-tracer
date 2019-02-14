@@ -144,3 +144,17 @@ impl<T: Clone, N: ArrayLength<T>> Clone for Normal<T, N> {
         self.components.iter().map(|a| a.clone()).into()
     }
 }
+
+impl<T, N: ArrayLength<T>> Normal<T, N>
+    where T: Mul<Output=T> + Sum + Copy, // To satisfy dot.
+          T: Ord + Default,              // For the comparison.
+          T: Neg<Output=T>               // To satisfy neg.
+{
+    pub fn face_forward<S: Into<Self> + Clone>(&self, other: &S) -> Self {
+        if self.dot(other.into()) < T::default() {
+            -self.clone()
+        } else {
+            self.clone()
+        }
+    }
+}

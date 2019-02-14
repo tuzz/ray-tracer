@@ -198,3 +198,17 @@ impl<T: Ord + Copy, N: ArrayLength<T>> Vector<T, N> {
             .into()
     }
 }
+
+impl<T, N: ArrayLength<T>> Vector<T, N>
+    where T: Mul<Output=T> + Sum + Copy, // To satisfy dot.
+          T: Ord + Default,              // For the comparison.
+          T: Neg<Output=T>               // To satisfy neg.
+{
+    pub fn face_forward<S: Into<Self> + Clone>(&self, other: &S) -> Self {
+        if self.dot(other.into()) < T::default() {
+            -self.clone()
+        } else {
+            self.clone()
+        }
+    }
+}

@@ -424,3 +424,31 @@ mod permute {
         assert_eq!(permute_120.z(), 5);
     }
 }
+
+mod face_forward {
+    use super::*;
+
+    #[test]
+    fn it_ensures_the_vector_is_in_the_same_hemisphere_as_another_vector() {
+        let a = Subject::new(1, 2, 3);
+        let b = Subject::new(-5, -5, -5);
+
+        let subject = a.face_forward(&b);
+
+        assert_eq!(subject.x(), -1);
+        assert_eq!(subject.y(), -2);
+        assert_eq!(subject.z(), -3);
+    }
+
+    #[test]
+    fn it_ensures_the_vector_is_in_the_same_hemisphere_as_the_normal() {
+        let vector = Subject::new(1, 2, 3);
+        let normal = Normal3::new(-5, -5, -5);
+
+        let subject = vector.face_forward(&normal);
+
+        assert_eq!(subject.x(), -1);
+        assert_eq!(subject.y(), -2);
+        assert_eq!(subject.z(), -3);
+    }
+}
