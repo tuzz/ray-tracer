@@ -54,3 +54,28 @@ mod conversions {
         assert_eq!(subject.ray, ray);
     }
 }
+
+mod scale_differentials {
+    use super::*;
+
+    #[test]
+    fn it_scales_the_differential_fields_by_a_number() {
+        let mut subject = Subject::default();
+
+        subject.ray.o = Point3f::new(1.0, 1.0, 1.0);
+        subject.rx_origin = Point3f::new(2.0, 2.0, 2.0);
+        subject.ry_origin = Point3f::new(3.0, 3.0, 3.0);
+
+        subject.ray.d = Vector3f::new(4.0, 4.0, 4.0);
+        subject.rx_direction = Vector3f::new(5.0, 5.0, 5.0);
+        subject.ry_direction = Vector3f::new(6.0, 6.0, 6.0);
+
+        subject.scale_differentials(0.5);
+
+        assert_eq!(subject.rx_origin, Point3f::new(1.5, 1.5, 1.5));
+        assert_eq!(subject.ry_origin, Point3f::new(2.0, 2.0, 2.0));
+
+        assert_eq!(subject.rx_direction, Vector3f::new(4.5, 4.5, 4.5));
+        assert_eq!(subject.ry_direction, Vector3f::new(5.0, 5.0, 5.0));
+    }
+}
