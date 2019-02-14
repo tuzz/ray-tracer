@@ -24,7 +24,7 @@ mod new {
 
         assert_eq!(subject.o, origin);
         assert_eq!(subject.d, direction);
-        assert_eq!(subject.t_max, 123.0);
+        assert_eq!(subject.t_max, RefCell::new(123.0));
         assert_eq!(subject.time, 456.0);
         assert_eq!(subject.medium, medium);
     }
@@ -39,8 +39,21 @@ mod default {
 
         assert_eq!(subject.o, Point3f::default());
         assert_eq!(subject.d, Vector3f::default());
-        assert_eq!(subject.t_max, INFINITY);
+        assert_eq!(subject.t_max, RefCell::new(INFINITY));
         assert_eq!(subject.time, 0.0);
         assert_eq!(subject.medium, None);
+    }
+}
+
+mod interior_mutability {
+    use super::*;
+
+    #[test]
+    fn it_allows_t_max_to_be_mutated_when_the_ray_is_immutable() {
+        let subject = Subject::default();
+
+        *subject.t_max.borrow_mut() = 555.0;
+
+        assert_eq!(subject.t_max, RefCell::new(555.0));
     }
 }
