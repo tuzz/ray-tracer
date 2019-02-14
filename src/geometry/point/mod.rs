@@ -3,7 +3,7 @@ use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 use super::vector::Vector;
 use std::cmp::{min, max};
 
-#[derive(Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Point<T, N: ArrayLength<T>> {
     pub components: GenericArray<T, N>,
 }

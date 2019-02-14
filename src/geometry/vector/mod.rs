@@ -5,7 +5,7 @@ use std::iter::Sum;
 use super::point::Point;
 use super::normal::Normal;
 
-#[derive(Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Vector<T, N: ArrayLength<T>> {
     pub components: GenericArray<T, N>,
 }

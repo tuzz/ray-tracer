@@ -10,3 +10,5 @@ mod point3;
 
 mod normal;
 mod normal3;
+
+mod ray;
