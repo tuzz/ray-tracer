@@ -10,6 +10,13 @@ pub struct Vector<T, N: ArrayLength<T>> {
     pub components: GenericArray<T, N>,
 }
 
+// Cloning GenericArray doesn't seem to work properly, so implement it manually:
+impl<T: Clone, N: ArrayLength<T>> Clone for Vector<T, N> {
+    fn clone(&self) -> Self {
+        self.components.iter().cloned().into()
+    }
+}
+
 impl<T, N: ArrayLength<T>, I, X> From<I> for Vector<T, N>
     where I: IntoIterator<Item=T, IntoIter=X>,
           X: ExactSizeIterator<Item=T>,
@@ -19,22 +26,28 @@ impl<T, N: ArrayLength<T>, I, X> From<I> for Vector<T, N>
     }
 }
 
-impl <T, N: ArrayLength<T>> From<Point<T, N>> for Vector<T, N> {
-    fn from(point: Point<T, N>) -> Self {
-        Self { components: point.components }
+impl <T: Clone, N: ArrayLength<T>> From<&Vector<T, N>> for Vector<T, N> {
+    fn from(vector: &Vector<T, N>) -> Self {
+        vector.clone()
     }
 }
 
-impl <T, N: ArrayLength<T>> From<Normal<T, N>> for Vector<T, N> {
-    fn from(normal: Normal<T, N>) -> Self {
-        Self { components: normal.components }
+impl <T: Clone, N: ArrayLength<T>> From<&Point<T, N>> for Vector<T, N> {
+    fn from(point: &Point<T, N>) -> Self {
+        point.components.iter().cloned().into()
     }
 }
 
-impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<&Self> for Vector<T, N> {
-    type Output = Self;
+impl <T: Clone, N: ArrayLength<T>> From<&Normal<T, N>> for Vector<T, N> {
+    fn from(normal: &Normal<T, N>) -> Self {
+        normal.components.iter().cloned().into()
+    }
+}
 
-    fn add(self, other: &Self) -> Self::Output {
+impl<T: Add<Output=T> + Copy, N: ArrayLength<T>> Add<Self> for &Vector<T, N> {
+    type Output = Vector<T, N>;
+
+    fn add(self, other: Self) -> Self::Output {
         self.components.iter()
             .zip(other.components.iter())
             .map(|(a, b)| *a + *b)
@@ -50,10 +63,10 @@ impl<T: AddAssign + Copy, N: ArrayLength<T>> AddAssign<&Self> for Vector<T, N> {
     }
 }
 
-impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<&Self> for Vector<T, N> {
-    type Output = Self;
+impl<T: Sub<Output=T> + Copy, N: ArrayLength<T>> Sub<Self> for &Vector<T, N> {
+    type Output = Vector<T, N>;
 
-    fn sub(self, other: &Self) -> Self::Output {
+    fn sub(self, other: Self) -> Self::Output {
         self.components.iter()
             .zip(other.components.iter())
             .map(|(a, b)| *a - *b)
@@ -69,8 +82,8 @@ impl<T: SubAssign + Copy, N: ArrayLength<T>> SubAssign<&Self> for Vector<T, N> {
     }
 }
 
-impl<T: Mul<Output=T> + Copy, N: ArrayLength<T>> Mul<T> for Vector<T, N> {
-    type Output = Self;
+impl<T: Mul<Output=T> + Copy, N: ArrayLength<T>> Mul<T> for &Vector<T, N> {
+    type Output = Vector<T, N>;
 
     fn mul(self, scalar: T) -> Self::Output {
         self.components.iter().map(|a| *a * scalar).into()
@@ -83,7 +96,9 @@ impl<T: MulAssign + Copy, N: ArrayLength<T>> MulAssign<T> for Vector<T, N> {
     }
 }
 
-impl<T: Into<f64> + Copy, D: Into<f64>, N: ArrayLength<T> + ArrayLength<f64>> Div<D> for Vector<T, N> {
+impl<T: Into<f64> + Copy, D: Into<f64>, N> Div<D> for &Vector<T, N>
+    where N: ArrayLength<T> + ArrayLength<f64>,
+{
     type Output = Vector<f64, N>;
 
     fn div(self, divisor: D) -> Self::Output {
@@ -101,8 +116,8 @@ impl<D: Into<f64>, N: ArrayLength<f64>> DivAssign<D> for Vector<f64, N> {
     }
 }
 
-impl<T: Neg<Output=T> + Copy, N: ArrayLength<T>> Neg for Vector<T, N> {
-    type Output = Self;
+impl<T: Neg<Output=T> + Copy, N: ArrayLength<T>> Neg for &Vector<T, N> {
+    type Output = Vector<T, N>;
 
     fn neg(self) -> Self::Output {
         self.components.iter().map(|&a| -a).into()
@@ -114,7 +129,7 @@ impl<N: ArrayLength<f64>> Vector<f64, N> {
         self.components.iter().map(|&a| a.abs()).into()
     }
 
-    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> f64 {
+    pub fn abs_dot<S: Into<Self>>(&self, other: S) -> f64 {
         self.dot(other).abs()
     }
 }
@@ -124,14 +139,14 @@ impl<N: ArrayLength<i32>> Vector<i32, N> {
         self.components.iter().map(|&a| a.abs()).into()
     }
 
-    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> i32 {
+    pub fn abs_dot<S: Into<Self>>(&self, other: S) -> i32 {
         self.dot(other).abs()
     }
 }
 
 impl<T: Mul<Output=T> + Sum + Copy, N: ArrayLength<T>> Vector<T, N> {
-    pub fn dot<S: Into<Self> + Clone>(&self, other: &S) -> T {
-        let other = other.clone().into();
+    pub fn dot<S: Into<Self>>(&self, other: S) -> T {
+        let other: Self = other.into();
 
         self.components.iter()
             .zip(other.components.iter())
@@ -152,14 +167,7 @@ impl<T: Into<f64> + Copy, N: ArrayLength<T>> Vector<T, N> {
 
 impl<T: Into<f64> + Copy, N: ArrayLength<T> + ArrayLength<f64>> Vector<T, N> {
     pub fn normalize(&self) -> Vector<f64, N> {
-        self.clone() / self.length()
-    }
-}
-
-// Cloning GenericArray doesn't seem to work properly, so implement it manually:
-impl<T: Clone, N: ArrayLength<T>> Clone for Vector<T, N> {
-    fn clone(&self) -> Self {
-        self.components.iter().map(|a| a.clone()).into()
+        self / self.length()
     }
 }
 
@@ -204,11 +212,11 @@ impl<T, N: ArrayLength<T>> Vector<T, N>
           T: Ord + Default,              // For the comparison.
           T: Neg<Output=T>               // To satisfy neg.
 {
-    pub fn face_forward<S: Into<Self> + Clone>(&self, other: &S) -> Self {
-        if self.dot(other.into()) < T::default() {
-            -self.clone()
+    pub fn face_forward<S: Into<Self>>(&self, other: S) -> Self {
+        if self.dot(other) < T::default() {
+            -self
         } else {
-            self.clone()
+            self.into()
         }
     }
 }

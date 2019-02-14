@@ -51,6 +51,19 @@ mod default {
     }
 }
 
+mod clone {
+    use super::*;
+
+    #[test]
+    fn it_clones_the_normal() {
+        let subject = Subject::new(1, 2, 3).clone();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+        assert_eq!(subject.z(), 3);
+    }
+}
+
 mod conversions {
     use super::*;
 
@@ -65,7 +78,8 @@ mod conversions {
 
     #[test]
     fn it_can_build_a_normal3_from_a_vector3() {
-        let subject: Subject<_> = Vector3::new(1, 2, 3).into();
+        let vector = &Vector3::new(1, 2, 3);
+        let subject: Subject<_> = vector.into();
 
         assert_eq!(subject.x(), 1);
         assert_eq!(subject.y(), 2);
@@ -81,7 +95,7 @@ mod addition {
         let a = Subject::new(1, 2, 3);
         let b = Subject::new(4, 5, 6);
 
-        let subject = a + &b;
+        let subject = &a + &b;
 
         assert_eq!(subject.x(), 5);
         assert_eq!(subject.y(), 7);
@@ -110,7 +124,7 @@ mod subtraction {
         let a = Subject::new(5, 5, 5);
         let b = Subject::new(1, 2, 3);
 
-        let subject = a - &b;
+        let subject = &a - &b;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 3);
@@ -136,7 +150,7 @@ mod multiplication {
 
     #[test]
     fn it_multiplies_by_a_scalar() {
-        let subject = Subject::new(1, 2, 3) * 4;
+        let subject = &Subject::new(1, 2, 3) * 4;
 
         assert_eq!(subject.x(), 4);
         assert_eq!(subject.y(), 8);
@@ -160,7 +174,7 @@ mod division {
 
     #[test]
     fn it_divides_by_a_divisor() {
-        let subject = Subject::new(1, 2, 3) / 10;
+        let subject = &Subject::new(1, 2, 3) / 10;
 
         assert_approx_eq!(subject.x(), 0.1);
         assert_approx_eq!(subject.y(), 0.2);
@@ -184,7 +198,7 @@ mod negation {
 
     #[test]
     fn it_returns_a_normal_pointing_in_the_opposite_direction() {
-        let subject = -Subject::new(1, 2, 3);
+        let subject = -&Subject::new(1, 2, 3);
 
         assert_eq!(subject.x(), -1);
         assert_eq!(subject.y(), -2);
