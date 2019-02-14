@@ -12,3 +12,4 @@ mod normal;
 mod normal3;
 
 mod ray;
+mod ray_differential;
