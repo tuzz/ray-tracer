@@ -19,6 +19,13 @@ impl Ray {
 
         Self { o, d, t_max, time, medium }
     }
+
+    fn at(&self, time: f64) -> Point3f {
+        let origin = &self.o;
+        let offset = &self.d * time;
+
+        origin + &offset
+    }
 }
 
 impl Default for Ray {

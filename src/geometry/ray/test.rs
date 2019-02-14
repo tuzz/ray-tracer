@@ -57,3 +57,20 @@ mod interior_mutability {
         assert_eq!(subject.t_max, RefCell::new(555.0));
     }
 }
+
+mod at {
+    use super::*;
+
+    #[test]
+    fn it_returns_the_point_at_a_position_along_the_ray() {
+        let origin = Point3f::new(0.0, 0.0, 0.0);
+        let direction = Vector3f::new(1.0, 2.0, 3.0);
+
+        let subject = Subject::new(origin, direction, None, None, None);
+        let point = subject.at(1.7);
+
+        assert_eq!(point.x(), 1.7);
+        assert_eq!(point.y(), 3.4);
+        assert_eq!(point.z(), 5.1);
+    }
+}
