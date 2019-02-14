@@ -13,3 +13,7 @@ mod normal3;
 
 mod ray;
 mod ray_differential;
+
+mod bounds;
+mod bounds2;
+mod bounds3;
