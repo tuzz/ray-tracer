@@ -20,5 +20,17 @@ impl Ray {
     }
 }
 
+impl Default for Ray {
+    fn default() -> Self {
+        let o = Point3f::default();
+        let d = Vector3f::default();
+        let t_max = Some(INFINITY);
+        let time = Some(0.0);
+        let medium = None;
+
+        Ray::new(o, d, t_max, time, medium)
+    }
+}
+
 #[cfg(test)]
 mod test;

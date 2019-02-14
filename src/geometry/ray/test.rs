@@ -29,3 +29,18 @@ mod new {
         assert_eq!(subject.medium, medium);
     }
 }
+
+mod default {
+    use super::*;
+
+    #[test]
+    fn it_sets_sensible_defaults_for_the_fields() {
+        let subject = Subject::default();
+
+        assert_eq!(subject.o, Point3f::default());
+        assert_eq!(subject.d, Vector3f::default());
+        assert_eq!(subject.t_max, INFINITY);
+        assert_eq!(subject.time, 0.0);
+        assert_eq!(subject.medium, None);
+    }
+}
