@@ -35,3 +35,16 @@ mod aliases {
         Bounds3f::new();
     }
 }
+
+mod conversions {
+    use super::*;
+
+    #[test]
+    fn it_can_build_a_bounding_box_from_a_point() {
+        let point = &Point3::new(1.0, 2.0, 3.0);
+        let subject: Subject<_> = point.into();
+
+        assert_eq!(&subject.p_min, point);
+        assert_eq!(&subject.p_max, point);
+    }
+}
