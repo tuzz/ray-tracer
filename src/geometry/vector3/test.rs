@@ -237,11 +237,7 @@ mod dot {
         let a = Subject::new(1, 2, 3);
         let b = Subject::new(4, 5, 6);
 
-        let subject = a.dot(&b);
-
-        assert_eq!(subject.x(), 4);
-        assert_eq!(subject.y(), 10);
-        assert_eq!(subject.z(), 18);
+        assert_eq!(a.dot(&b), 32);
     }
 
     #[test]
@@ -249,11 +245,7 @@ mod dot {
         let vector = Subject::new(1, 2, 3);
         let normal = Normal3::new(4, 5, 6);
 
-        let subject = vector.dot(&normal);
-
-        assert_eq!(subject.x(), 4);
-        assert_eq!(subject.y(), 10);
-        assert_eq!(subject.z(), 18);
+        assert_eq!(vector.dot(&normal), 32);
     }
 }
 
@@ -265,11 +257,7 @@ mod abs_dot {
         let a = Subject::new(1, 2, 3);
         let b = Subject::new(-4, -5, -6);
 
-        let subject = a.abs_dot(&b);
-
-        assert_eq!(subject.x(), 4);
-        assert_eq!(subject.y(), 10);
-        assert_eq!(subject.z(), 18);
+        assert_eq!(a.abs_dot(&b), 32);
     }
 
     #[test]
@@ -277,11 +265,7 @@ mod abs_dot {
         let vector = Subject::new(1, 2, 3);
         let normal = Normal3::new(-4, -5, -6);
 
-        let subject = vector.abs_dot(&normal);
-
-        assert_eq!(subject.x(), 4);
-        assert_eq!(subject.y(), 10);
-        assert_eq!(subject.z(), 18);
+        assert_eq!(vector.abs_dot(&normal), 32);
     }
 }
 

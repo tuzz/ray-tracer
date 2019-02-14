@@ -212,10 +212,7 @@ mod dot {
         let a = Subject::new(1, 2);
         let b = Subject::new(3, 4);
 
-        let subject = a.dot(&b);
-
-        assert_eq!(subject.x(), 3);
-        assert_eq!(subject.y(), 8);
+        assert_eq!(a.dot(&b), 11);
     }
 }
 
@@ -227,10 +224,7 @@ mod abs_dot {
         let a = Subject::new(1, 2);
         let b = Subject::new(-3, -4);
 
-        let subject = a.abs_dot(&b);
-
-        assert_eq!(subject.x(), 3);
-        assert_eq!(subject.y(), 8);
+        assert_eq!(a.abs_dot(&b), 11);
     }
 }
 

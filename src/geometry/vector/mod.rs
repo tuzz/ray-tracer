@@ -1,6 +1,7 @@
 use generic_array::{ArrayLength, GenericArray};
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 use std::cmp::{min, max};
+use std::iter::Sum;
 use super::point::Point;
 use super::normal::Normal;
 
@@ -113,7 +114,7 @@ impl<N: ArrayLength<f64>> Vector<f64, N> {
         self.components.iter().map(|&a| a.abs()).into()
     }
 
-    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> Self {
+    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> f64 {
         self.dot(other).abs()
     }
 }
@@ -123,19 +124,19 @@ impl<N: ArrayLength<i32>> Vector<i32, N> {
         self.components.iter().map(|&a| a.abs()).into()
     }
 
-    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> Self {
+    pub fn abs_dot<S: Into<Self> + Clone>(&self, other: &S) -> i32 {
         self.dot(other).abs()
     }
 }
 
-impl<T: Mul<Output=T> + Copy, N: ArrayLength<T>> Vector<T, N> {
-    pub fn dot<S: Into<Self> + Clone>(&self, other: &S) -> Self {
+impl<T: Mul<Output=T> + Sum + Copy, N: ArrayLength<T>> Vector<T, N> {
+    pub fn dot<S: Into<Self> + Clone>(&self, other: &S) -> T {
         let other = other.clone().into();
 
         self.components.iter()
             .zip(other.components.iter())
             .map(|(&a, &b)| a * b)
-            .into()
+            .sum()
     }
 }
 
