@@ -4,11 +4,11 @@ use super::vector3::Vector3f;
 use crate::dummy::Medium;
 
 struct Ray {
-    o: Point3f,
-    d: Vector3f,
-    t_max: f64,
-    time: f64,
-    medium: Option<Medium>,
+    pub o: Point3f,
+    pub d: Vector3f,
+    pub t_max: f64,
+    pub time: f64,
+    pub medium: Option<Medium>,
 }
 
 impl Ray {
