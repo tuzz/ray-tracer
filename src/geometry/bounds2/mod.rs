@@ -28,5 +28,8 @@ impl Bounds2<i32> {
     }
 }
 
+pub type Bounds2f = Bounds2<f64>;
+pub type Bounds2i = Bounds2<i32>;
+
 #[cfg(test)]
 mod test;

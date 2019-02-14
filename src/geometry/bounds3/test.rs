@@ -21,3 +21,17 @@ mod new {
         assert_eq!(subject.p_max.z(), std::i32::MIN);
     }
 }
+
+mod aliases {
+    use super::*;
+
+    #[test]
+    fn it_has_a_type_alias_for_bounds_of_signed_integers() {
+        Bounds3i::new();
+    }
+
+    #[test]
+    fn it_has_a_type_alias_for_a_point_of_double_precision_floats() {
+        Bounds3f::new();
+    }
+}

@@ -28,5 +28,8 @@ impl Bounds3<i32> {
     }
 }
 
+pub type Bounds3f = Bounds3<f64>;
+pub type Bounds3i = Bounds3<i32>;
+
 #[cfg(test)]
 mod test;
