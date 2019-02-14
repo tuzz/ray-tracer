@@ -2,6 +2,7 @@ use generic_array::{ArrayLength, GenericArray};
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign, Neg};
 use std::cmp::{min, max};
 use super::point::Point;
+use super::normal::Normal;
 
 #[derive(Default)]
 pub struct Vector<T, N: ArrayLength<T>> {
@@ -20,6 +21,12 @@ impl<T, N: ArrayLength<T>, I, X> From<I> for Vector<T, N>
 impl <T, N: ArrayLength<T>> From<Point<T, N>> for Vector<T, N> {
     fn from(point: Point<T, N>) -> Self {
         Self { components: point.components }
+    }
+}
+
+impl <T, N: ArrayLength<T>> From<Normal<T, N>> for Vector<T, N> {
+    fn from(normal: Normal<T, N>) -> Self {
+        Self { components: normal.components }
     }
 }
 

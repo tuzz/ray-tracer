@@ -1,6 +1,7 @@
 use super::*;
 use assert_approx_eq::assert_approx_eq;
 use crate::geometry::point3::Point3;
+use crate::geometry::normal3::Normal3;
 
 type Subject<T> = Vector3<T>;
 
@@ -71,6 +72,15 @@ mod conversions {
     #[test]
     fn it_can_build_a_vector3_from_a_point3() {
         let subject: Subject<_> = Point3::new(1, 2, 3).into();
+
+        assert_eq!(subject.x(), 1);
+        assert_eq!(subject.y(), 2);
+        assert_eq!(subject.z(), 3);
+    }
+
+    #[test]
+    fn it_can_build_a_vector3_from_a_normal3() {
+        let subject: Subject<_> = Normal3::new(1, 2, 3).into();
 
         assert_eq!(subject.x(), 1);
         assert_eq!(subject.y(), 2);
