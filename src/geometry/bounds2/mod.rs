@@ -4,8 +4,8 @@ use super::bounds::*;
 
 pub type Bounds2<T> = Bounds<T, U2>;
 
-impl Bounds2<f64> {
-    pub fn new() -> Self {
+impl Default for Bounds2<f64> {
+    fn default() -> Self {
         let min = std::f64::MIN;
         let max = std::f64::MAX;
 
@@ -16,8 +16,8 @@ impl Bounds2<f64> {
     }
 }
 
-impl Bounds2<i32> {
-    pub fn new() -> Self {
+impl Default for Bounds2<i32> {
+    fn default() -> Self {
         let min = std::i32::MIN;
         let max = std::i32::MAX;
 

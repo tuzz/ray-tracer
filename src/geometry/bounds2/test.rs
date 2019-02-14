@@ -2,12 +2,12 @@ use super::*;
 
 type Subject<T> = Bounds2<T>;
 
-mod new {
+mod default {
     use super::*;
 
     #[test]
     fn it_builds_an_empty_bounding_box_for_f64() {
-        let subject = Subject::<f64>::new();
+        let subject = Subject::<f64>::default();
 
         assert_eq!(subject.p_min.x(), std::f64::MAX);
         assert_eq!(subject.p_max.y(), std::f64::MIN);
@@ -15,7 +15,7 @@ mod new {
 
     #[test]
     fn it_builds_an_empty_bounding_box_for_i32() {
-        let subject = Subject::<i32>::new();
+        let subject = Subject::<i32>::default();
 
         assert_eq!(subject.p_min.x(), std::i32::MAX);
         assert_eq!(subject.p_max.y(), std::i32::MIN);
@@ -27,12 +27,12 @@ mod aliases {
 
     #[test]
     fn it_has_a_type_alias_for_bounds_of_signed_integers() {
-        Bounds2i::new();
+        Bounds2i::default();
     }
 
     #[test]
     fn it_has_a_type_alias_for_a_point_of_double_precision_floats() {
-        Bounds2f::new();
+        Bounds2f::default();
     }
 }
 
